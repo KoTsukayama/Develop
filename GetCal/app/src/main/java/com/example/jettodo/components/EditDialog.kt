@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jettodo.MainViewModel
+import com.example.jettodo.Screen
 
 @Composable
 fun EditDialog(viewModel: MainViewModel = hiltViewModel(), ){
@@ -25,7 +26,11 @@ fun EditDialog(viewModel: MainViewModel = hiltViewModel(), ){
     AlertDialog(
         // Tap outside the screen
         onDismissRequest = {viewModel.isShowDialog = false},
-        title = { Text(text = if(viewModel.isEditing)"Task update" else "Task create")},
+        title = { Text(text =
+        if( viewModel.isEditing || viewModel.isEditingWeek ||
+            viewModel.isEditingMonth || viewModel.isEditingYear
+        ){ GetEditText("update") }
+        else { GetEditText("create") })},
         text = {
                Column {
                    Text(text = "Title")
@@ -58,16 +63,48 @@ fun EditDialog(viewModel: MainViewModel = hiltViewModel(), ){
                           modifier = Modifier.width(120.dp),
                           onClick = {
                               viewModel.isShowDialog = false
-                              if(viewModel.isEditing){
+                              if(viewModel.isEditing && viewModel.tabSelected == Screen.DAY) {
                                   viewModel.updateTask()
-                              } else {
-                                  viewModel.createTask()
+                              }else if (viewModel.isEditingWeek && viewModel.tabSelected == Screen.WEEK) {
+                                  viewModel.updateWeekTask()
+                              }else if (viewModel.isEditingMonth && viewModel.tabSelected == Screen.MONTH) {
+                                  viewModel.updateMonthTask()
+                              }else if (viewModel.isEditingYear && viewModel.tabSelected == Screen.YEAR) {
+                                  viewModel.updateYearTask()
+                              }else {
+                                  if (viewModel.tabSelected == Screen.DAY) {
+                                      viewModel.createTask()
+                                  } else if (viewModel.tabSelected == Screen.WEEK) {
+                                      viewModel.createWeekTask()
+                                  } else if (viewModel.tabSelected == Screen.MONTH) {
+                                      viewModel.createMonthTask()
+                                  } else if (viewModel.tabSelected == Screen.YEAR){
+                                      viewModel.createYearTask()
+                                  }
                               }
                           }
                       ){
-                          Text(text = if(viewModel.isEditing)"Update" else "Create")
+                          Text(text = if (viewModel.isEditing || viewModel.isEditingWeek ||
+                                  viewModel.isEditingMonth || viewModel.isEditingYear) "Update" else "Create")
                       }
                   }
         },
     )
+}
+
+@Composable
+fun GetEditText(
+    kind : String,
+    viewModel: MainViewModel = hiltViewModel()): String{
+    var text : String
+    if (viewModel.tabSelected == Screen.DAY) {
+        text = "Day task"
+    } else if (viewModel.tabSelected == Screen.WEEK) {
+        text = "Week task"
+    } else if (viewModel.tabSelected == Screen.MONTH) {
+        text = "Month task"
+    } else {
+        text = "Year task"
+    }
+    return text + " " + kind
 }
