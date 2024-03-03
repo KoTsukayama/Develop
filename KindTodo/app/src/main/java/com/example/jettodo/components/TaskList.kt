@@ -30,9 +30,9 @@ fun WeekTaskList(
     onClickDelete:(WeekTask) -> Unit,
 ){
     LazyColumn {
-        items(tasks) { task ->
+        items(tasks) { WeekTask ->
             WeekTaskRow(
-                task = task,
+                task = WeekTask,
                 onClickRow = onClickRow,
                 onClickDelete = onClickDelete)
         }
@@ -46,9 +46,9 @@ fun MonthTaskList(
     onClickDelete:(MonthTask) -> Unit,
 ){
     LazyColumn {
-        items(tasks) { task ->
+        items(tasks) { MonthTask ->
             MonthTaskRow(
-                task = task,
+                task = MonthTask,
                 onClickRow = onClickRow,
                 onClickDelete = onClickDelete)
         }
@@ -62,9 +62,9 @@ fun YearTaskList(
     onClickDelete:(YearTask) -> Unit,
 ){
     LazyColumn {
-        items(tasks) { task ->
+        items(tasks) { YearTask ->
             YearTaskRow(
-                task = task,
+                task = YearTask,
                 onClickRow = onClickRow,
                 onClickDelete = onClickDelete)
         }

@@ -196,4 +196,22 @@ class MainViewModel @Inject constructor(
         title = ""
         description = ""
     }
+
+    fun resetPropertiesWeek() {
+        editingWeekTask = null
+        title = ""
+        description = ""
+    }
+
+    fun resetPropertiesMonth() {
+        editingMonthTask = null
+        title = ""
+        description = ""
+    }
+
+    fun resetPropertiesYear() {
+        editingYearTask = null
+        title = ""
+        description = ""
+    }
 }

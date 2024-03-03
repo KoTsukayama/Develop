@@ -20,17 +20,29 @@ fun EditDialog(viewModel: MainViewModel = hiltViewModel(), ){
     {
         // Called when the dialog is closed
         onDispose {
-            viewModel.resetProperties()
+            if (viewModel.tabSelected == Screen.DAY) {
+                viewModel.resetProperties()
+            }else if (viewModel.tabSelected == Screen.WEEK) {
+                viewModel.resetPropertiesWeek()
+            }else if (viewModel.tabSelected == Screen.MONTH) {
+                viewModel.resetPropertiesMonth()
+            }else if (viewModel.tabSelected == Screen.YEAR) {
+                viewModel.resetPropertiesYear()
+            }
         }
     }
     AlertDialog(
         // Tap outside the screen
         onDismissRequest = {viewModel.isShowDialog = false},
         title = { Text(text =
-        if( viewModel.isEditing || viewModel.isEditingWeek ||
-            viewModel.isEditingMonth || viewModel.isEditingYear
-        ){ GetEditText("update") }
-        else { GetEditText("create") })},
+        if(
+            (viewModel.isEditing && viewModel.tabSelected == Screen.DAY) ||
+            (viewModel.isEditingWeek && viewModel.tabSelected == Screen.WEEK) ||
+            (viewModel.isEditingMonth && viewModel.tabSelected == Screen.MONTH)||
+            (viewModel.isEditingYear&& viewModel.tabSelected == Screen.YEAR)
+        ){
+            GetEditText("update")
+        } else { GetEditText("create") })},
         text = {
                Column {
                    Text(text = "Title")
@@ -63,29 +75,39 @@ fun EditDialog(viewModel: MainViewModel = hiltViewModel(), ){
                           modifier = Modifier.width(120.dp),
                           onClick = {
                               viewModel.isShowDialog = false
-                              if(viewModel.isEditing && viewModel.tabSelected == Screen.DAY) {
-                                  viewModel.updateTask()
-                              }else if (viewModel.isEditingWeek && viewModel.tabSelected == Screen.WEEK) {
-                                  viewModel.updateWeekTask()
-                              }else if (viewModel.isEditingMonth && viewModel.tabSelected == Screen.MONTH) {
-                                  viewModel.updateMonthTask()
-                              }else if (viewModel.isEditingYear && viewModel.tabSelected == Screen.YEAR) {
-                                  viewModel.updateYearTask()
-                              }else {
-                                  if (viewModel.tabSelected == Screen.DAY) {
+                              if (viewModel.tabSelected == Screen.DAY) {
+                                  if (viewModel.isEditing) {
+                                      viewModel.updateTask()
+                                  } else {
                                       viewModel.createTask()
-                                  } else if (viewModel.tabSelected == Screen.WEEK) {
+                                  }
+                              }else if (viewModel.tabSelected == Screen.WEEK) {
+                                  if (viewModel.isEditingWeek) {
+                                      viewModel.updateWeekTask()
+                                  } else {
                                       viewModel.createWeekTask()
-                                  } else if (viewModel.tabSelected == Screen.MONTH) {
+                                  }
+                              }else if (viewModel.tabSelected == Screen.MONTH) {
+                                  if (viewModel.isEditingMonth) {
+                                      viewModel.updateMonthTask()
+                                  } else {
                                       viewModel.createMonthTask()
-                                  } else if (viewModel.tabSelected == Screen.YEAR){
+                                  }
+                              }else if (viewModel.tabSelected == Screen.YEAR) {
+                                  if (viewModel.isEditingYear) {
+                                      viewModel.updateYearTask()
+                                  } else {
                                       viewModel.createYearTask()
                                   }
                               }
                           }
                       ){
-                          Text(text = if (viewModel.isEditing || viewModel.isEditingWeek ||
-                                  viewModel.isEditingMonth || viewModel.isEditingYear) "Update" else "Create")
+                          Text(text = if (
+                              (viewModel.isEditing && viewModel.tabSelected == Screen.DAY) ||
+                              (viewModel.isEditingWeek && viewModel.tabSelected == Screen.WEEK) ||
+                              (viewModel.isEditingMonth && viewModel.tabSelected == Screen.MONTH)||
+                              (viewModel.isEditingYear&& viewModel.tabSelected == Screen.YEAR)
+                          ) "Update" else "Create")
                       }
                   }
         },
