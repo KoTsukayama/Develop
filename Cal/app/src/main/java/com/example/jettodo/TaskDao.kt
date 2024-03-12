@@ -6,22 +6,21 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-
 @Dao
-interface TaskDao {
+interface CalListDao {
 
     // suspend is an asynchronous process
 
     // Defined by annotation
-   @Insert
-    suspend fun insertTask(task: Task)
+    @Insert
+    suspend fun insertTask(callist: CalList)
 
-    @Query("SELECT * FROM Task")
-    fun  loadAllTask(): Flow<List<Task>>
+    @Query("SELECT * FROM CalList")
+    fun  loadAllTask(): Flow<List<CalList>>
 
     @Update
-    suspend fun updateTask(task: Task)
+    suspend fun updateTask(callist: CalList)
 
     @Delete
-    suspend fun deleteTask(task: Task)
+    suspend fun deleteTask(callist: CalList)
 }

@@ -1,9 +1,12 @@
 package com.example.jettodo
 
 import android.util.Log
+import androidx.compose.material.Colors
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,59 +15,60 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val taskDao: TaskDao) :ViewModel() {
+class MainViewModel @Inject constructor(private val callistdao: CalListDao) :ViewModel() {
     var title by mutableStateOf("")
     var description by mutableStateOf("")
-
+    var calorie by mutableStateOf("")
     var isShowDialog by mutableStateOf(false)
 
-    private var editingTask:Task?= null
+    private var editingCalList:CalList?= null
 
-    // New or Update task
+    // New or Update callist
     val isEditing:Boolean
-        get() = editingTask != null
+        get() = editingCalList != null
 
-    fun setEditingTask(task: Task){
-        editingTask = task
-        title = task.title
-        description = task.description
+    fun setEditingCalList(callist: CalList){
+        editingCalList = callist
+        title = callist.title
+        description = callist.description
+        calorie = callist.calorie
     }
 
-
-    // Task data
-    val tasks = taskDao.loadAllTask().distinctUntilChanged()
+    // CalList data
+    val callists = callistdao.loadAllTask().distinctUntilChanged()
 
     fun createTask(){
-
-        // insertTask is suspend
+        // insertList is suspend
         viewModelScope.launch {
-            val newTask = Task(title = title, description = description)
-            taskDao.insertTask(newTask)
-            Log.d(MainViewModel::class.simpleName, "success create task")
+            val newTask = CalList(title = title, description = description, calorie = calorie)
+            callistdao.insertTask(newTask)
+            Log.d(MainViewModel::class.simpleName, "success create callist")
         }
     }
 
-    fun deleteTask (task: Task){
+    fun deleteTask (callist: CalList){
         viewModelScope.launch {
-            taskDao.deleteTask(task)
-            Log.d(MainViewModel::class.simpleName, "success delete task")
+            callistdao.deleteTask(callist)
+            Log.d(MainViewModel::class.simpleName, "success delete callistdao")
         }
     }
 
     fun updateTask(){
-        editingTask?.let{ task ->
+        editingCalList?.let{ callist ->
             viewModelScope.launch {
-                task.title = title
-                task.description = description
-                taskDao.updateTask(task)
+                callist.title = title
+                callist.description = description
+                callist.calorie = calorie
+                callistdao.updateTask(callist)
             }
         }
     }
 
     fun resetProperties()
     {
-        editingTask = null
+        editingCalList = null
         title = ""
         description = ""
+        calorie = ""
     }
 }

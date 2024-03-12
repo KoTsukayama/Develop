@@ -13,8 +13,8 @@ object Module {
     @Provides
     fun provideDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(context, AppDatabase::class.java, "task_database").build()
+    ) = Room.databaseBuilder(context, AppDatabaseCalList::class.java, "caList_database").build()
 
     @Provides
-    fun provideDao(db: AppDatabase) = db.taskDao()
+    fun provideDao(db: AppDatabaseCalList) = db.callistDao()
 }

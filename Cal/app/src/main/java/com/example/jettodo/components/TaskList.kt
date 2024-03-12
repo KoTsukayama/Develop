@@ -3,21 +3,24 @@ package com.example.jettodo.components
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.room.Delete
-import com.example.jettodo.Task
+import com.example.jettodo.CalList
+import com.example.jettodo.MainViewModel
 
 @Composable
-fun TaskList(
-    tasks:List<Task>,
-    onClickRow:(Task) -> Unit,
-    onClickDelete:(Task) -> Unit,
+fun CalList(
+    callists:List<CalList>,
+    onClickRow:(CalList) -> Unit,
+    onClickDelete:(CalList) -> Unit,
 ){
     LazyColumn {
-        items(tasks) { task ->
-            TaskRow(
-                task = task,
+        items(callists) { callist ->
+            CalListRow(
+                calList = callist,
                 onClickRow = onClickRow,
-                onClickDelete = onClickDelete)
+                onClickDelete = onClickDelete
+            )
         }
     }
 }

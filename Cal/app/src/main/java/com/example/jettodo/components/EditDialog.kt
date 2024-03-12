@@ -1,6 +1,7 @@
 package com.example.jettodo.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jettodo.MainViewModel
@@ -25,13 +27,19 @@ fun EditDialog(viewModel: MainViewModel = hiltViewModel(), ){
     AlertDialog(
         // Tap outside the screen
         onDismissRequest = {viewModel.isShowDialog = false},
-        title = { Text(text = if(viewModel.isEditing)"Task update" else "Task create")},
+        title = { Text(text = if(viewModel.isEditing)"Menu Update" else "Add Menu")},
         text = {
                Column {
-                   Text(text = "Title")
+                   Text(text = "Menu")
                    TextField(
                        value = viewModel.title,
                        onValueChange = {viewModel.title = it}
+                   )
+                   Text(text = "Calorie")
+                   TextField(
+                       value = viewModel.calorie,
+                       onValueChange = {viewModel.calorie = it},
+                       keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
                    )
                    Text(text = "Detail")
                    TextField(
