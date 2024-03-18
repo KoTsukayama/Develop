@@ -14,6 +14,7 @@ WORKDIR /app
 # PC上のGemfile を .（/app）にコピー
 COPY Gemfile .
 COPY Gemfile.lock .
+COPY vendor ./vendor
  
 # バイナリのgemではなく、ソースコードからgemをビルドする設定
 RUN bundle config set force_ruby_platform true

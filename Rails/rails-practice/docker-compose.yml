@@ -7,8 +7,8 @@ services:
     # sh → shell でrailsサーバーが開いていたら、killして、起動
     # p 3000　portnumber
     # [rails s -> pumactl start]
-    # bundle exec rails
-    command: sh -c "rm -f tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'"
+    # bundle exec -> rails
+    command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
 
     # 編集した内容が、自動でrailsサーバーに直接反映させる
     #（pc上のカレントディレクトリから、コンテナ上の「/app」にマウント
