@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                         verticalAlignment = Alignment.Top,
                     ) {
                         // Tab
-                        StudyReportScreen()
+                        TabScreen()
                     }
                 }
             }
@@ -51,54 +51,30 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun StudyReportScreen(viewModel: MainViewModel = hiltViewModel()) {
+fun TabScreen(viewModel: MainViewModel = hiltViewModel()) {
 
     Column {
         TabRow(
             selectedTabIndex = viewModel.tabSelected.ordinal,
             backgroundColor = Color.LightGray,
             contentColor = Color.Red,
+            modifier = Modifier.align(androidx.compose.ui.Alignment.Start,)
         ) {
             Screen.values().map { it.name }.forEachIndexed { index, title ->
                 Tab(
-                    text = { Text(text = title) },
+                    text = { Text(text = "LIST") },
                     selected = viewModel.tabSelected.ordinal == index,
                     onClick = { viewModel.tabSelected = Screen.values()[index] },
                     unselectedContentColor = Color.Blue
                 )
             }
         }
-        when (viewModel.tabSelected) {
-            Screen.DAY -> DayScreen()
-            Screen.WEEK -> WeekScreen()
-            Screen.MONTH -> MonthScreen()
-            Screen.YEAR -> YaerScreen()
-        }
+        MainContent()
     }
 }
 
 enum class Screen {
-    DAY, WEEK, MONTH, YEAR
-}
-
-@Composable
-fun DayScreen() {
-    MainContent()
-}
-
-@Composable
-fun WeekScreen() {
-    MainContent()
-}
-
-@Composable
-fun MonthScreen() {
-    MainContent()
-}
-
-@Composable
-fun YaerScreen() {
-    MainContent()
+    CALORIE
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -113,13 +89,12 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
         FloatingActionButton(onClick = { viewModel.isShowDialog = true }) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "Create new")
         }
-    }) {
-        val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-        val tasksWeek by viewModel.tasksWeek.collectAsState(initial = emptyList())
-        val tasksMonth by viewModel.tasksMonth.collectAsState(initial = emptyList())
-        val tasksYear by viewModel.tasksYear.collectAsState(initial = emptyList())
 
-        if (viewModel.tabSelected == Screen.DAY) {
+    })
+    {
+        val tasks by viewModel.tasks.collectAsState(initial = emptyList())
+
+        if (viewModel.tabSelected == Screen.CALORIE) {
             TaskList(
                 tasks = tasks,
                 onClickRow = {
@@ -127,33 +102,6 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
                     viewModel.isShowDialog = true
                 },
                 onClickDelete = { viewModel.deleteTask(it) },
-            )
-        } else if (viewModel.tabSelected == Screen.WEEK) {
-            WeekTaskList(
-                tasks = tasksWeek,
-                onClickRow = {
-                    viewModel.setEditingWeekTask(it)
-                    viewModel.isShowDialog = true
-                },
-                onClickDelete = { viewModel.deleteWeekTask(it) },
-            )
-        } else if (viewModel.tabSelected == Screen.MONTH) {
-            MonthTaskList(
-                tasks = tasksMonth,
-                onClickRow = {
-                    viewModel.setEditingMonthTask(it)
-                    viewModel.isShowDialog = true
-                },
-                onClickDelete = { viewModel.deleteMonthTask(it) },
-            )
-        } else {
-            YearTaskList(
-                tasks = tasksYear,
-                onClickRow = {
-                    viewModel.setEditingYearTask(it)
-                    viewModel.isShowDialog = true
-                },
-                onClickDelete = { viewModel.deleteYearTask(it) },
             )
         }
     }

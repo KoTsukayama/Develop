@@ -16,10 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jettodo.MonthTask
 import com.example.jettodo.Task
-import com.example.jettodo.WeekTask
-import com.example.jettodo.YearTask
 
 @Composable
 fun TaskRow(
@@ -48,95 +45,11 @@ fun TaskRow(
         }
     }
 }
-
-@Composable
-fun WeekTaskRow(
-    task: WeekTask,
-    onClickRow: (WeekTask) -> Unit,
-    onClickDelete: (WeekTask) -> Unit,
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp)
-            .clickable { onClickRow(task) },
-        elevation = 5.dp,
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(10.dp)
-            /*.clickable { onClickRow(task) }*/,
-            verticalAlignment = Alignment.CenterVertically,
-        ){
-            Text(text = task.title)
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { onClickDelete(task) }) {
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
-            }
-        }
-    }
-}
-
-@Composable
-fun MonthTaskRow(
-    task: MonthTask,
-    onClickRow: (MonthTask) -> Unit,
-    onClickDelete: (MonthTask) -> Unit,
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp)
-            .clickable { onClickRow(task) },
-        elevation = 5.dp,
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(10.dp)
-            /*.clickable { onClickRow(task) }*/,
-            verticalAlignment = Alignment.CenterVertically,
-        ){
-            Text(text = task.title)
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { onClickDelete(task) }) {
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
-            }
-        }
-    }
-}
-
-@Composable
-fun YearTaskRow(
-    task: YearTask,
-    onClickRow: (YearTask) -> Unit,
-    onClickDelete: (YearTask) -> Unit,
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp)
-            .clickable { onClickRow(task) },
-        elevation = 5.dp,
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(10.dp)
-            /*.clickable { onClickRow(task) }*/,
-            verticalAlignment = Alignment.CenterVertically,
-        ){
-            Text(text = task.title)
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { onClickDelete(task) }) {
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
-            }
-        }
-    }
-}
 @Preview
 @Composable
 fun TaskRowPreview(){
     TaskRow(
-        task = Task(title = "preview", description = ""),
+        task = Task(title = "preview", description = "", calorie = 0),
         onClickRow = {},
     ) {}
 }

@@ -11,25 +11,5 @@ data class Task(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     var title: String,
     var description: String,
-)
-
-@Entity
-data class WeekTask(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    var title: String,
-    var description: String,
-)
-
-@Entity
-data class MonthTask(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    var title: String,
-    var description: String,
-)
-
-@Entity
-data class YearTask(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    var title: String,
-    var description: String,
+    var calorie: Int
 )
