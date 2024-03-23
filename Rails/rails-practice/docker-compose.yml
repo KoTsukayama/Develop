@@ -20,6 +20,8 @@ services:
     # dbのコンテナが立ち上がってから、webへ
     depends_on:
       - db
+    tty: true
+    stdin_open: true
 
 # Mysql
   db:
