@@ -20,7 +20,7 @@ public class IssueController {
     private final IssueService issueService;
 
     @GetMapping
-    public String showList(Model model){
+    public String showList(Model model) {
 
         model.addAttribute("issueList", issueService.findAll());
         return "issues/list";
@@ -28,14 +28,14 @@ public class IssueController {
 
     // GET /issues/creationForm
     @GetMapping("/creationForm")
-    public String showCreationForm(@ModelAttribute IssueForm form){
+    public String showCreationForm(@ModelAttribute IssueForm form) {
         return "issues/creationForm";
     }
 
-    // POST /isssue
+    // POST /issues
     @PostMapping
-    public String create(IssueForm form, Model model){
-        // TODO　データの永続化
+    public String create(IssueForm form, Model model) {
+        issueService.create(form.getSummary(), form.getDescription());
         return showList(model); // TODO リロードボタン対策が必要
     }
 }
