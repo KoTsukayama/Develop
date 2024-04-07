@@ -2,24 +2,26 @@ import TodoRowItem from './TodoRowItem';
 
 function TodoTable(props) {
     return (
-        <tabele className="table table-hover">
-            <thread>
+        <table class="table table-white table-hover">
+            <thead>
                 <tr>
                     <th scope='col'>#</th>
                     <th scope='col'>Description</th>
                     <th scope='col'>Assigned</th>
                 </tr>
-            </thread>
+            </thead>
             <tbody>
                 {props.todos.map(todo => (
                     <TodoRowItem
+                        key={todo.rowNumber}
                         rowNumber={todo.rowNumber}
                         rowDescription={todo.rowDescription}
                         rowAssigned={todo.rowAssigned}
+                        deleteTodo={props.deleteTodo}
                     />
                 ))}  
             </tbody>
-        </tabele>
+        </table>
     )
 }
 
