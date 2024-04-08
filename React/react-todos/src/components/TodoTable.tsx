@@ -1,8 +1,9 @@
+import React from 'react';
 import TodoRowItem from './TodoRowItem';
 
-function TodoTable(props) {
+function TodoTable(props: {todos: TodoModel[], deleteTodo: Function}) {
     return (
-        <table class="table table-white table-hover">
+        <table className="table table-white table-hover">
             <thead>
                 <tr>
                     <th scope='col'>#</th>

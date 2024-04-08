@@ -14,7 +14,7 @@ function App() {
     { rowNumber: 4, rowDescription: 'Charge phone battery', rowAssigned: 'User One' }
   ])
 
-  const addTodo = (description: any, assigned: any) => {
+  const addTodo = (description: string, assigned: string) => {
     let rowNumber = 0;
     if (todos.length > 0) {
       rowNumber = todos[todos.length - 1].rowNumber + 1;
