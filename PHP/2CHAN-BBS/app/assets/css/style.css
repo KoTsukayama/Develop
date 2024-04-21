@@ -1,0 +1,74 @@
+body {
+    background-color: rgb(199, 241, 183);
+}
+
+.title {
+    text-align: center;
+    font-size: 2.5vw; /* レスポンシブフォントサイズ */
+}
+
+.threadWrapper {
+    background-color: #f3eded;
+    padding: 2vw; /* レスポンシブな余白 */
+    max-width: 90vw; /* コンテンツの最大幅を90%に設定 */
+    margin: 0 auto;
+    border: 1px solid black;
+    margin-bottom: 2vw; /* レスポンシブな余白 */
+}
+
+.childWrapper {
+    border: 1px solid black;
+    padding: 2vw; /* レスポンシブな余白 */
+}
+
+.threadTitle {
+    display: flex;
+    align-items: center;
+    font-weight: 100;
+    margin-left: 1vw; /* レスポンシブな余白 */
+    height: 10vh; /* レスポンシブな高さ */
+}
+
+.threadTitle h1 {
+    color: red;
+    margin-left: 0.5vw; /* レスポンシブな余白 */
+    font-size: 2vw; /* レスポンシブフォントサイズ */
+}
+
+section {
+    padding: 0 1vw; /* レスポンシブな余白 */
+}
+
+section .nameArea {
+    display: flex;
+    align-items: center;
+    margin-bottom: -0.7vh; /* レスポンシブな余白 */
+}
+
+section .username {
+    color: rgb(73, 136, 214);
+    font-weight: 700;
+    margin-right: 0.2vw; /* レスポンシブな余白 */
+}
+
+section .comment {
+    margin-top: 0;
+    margin-left: 2vw; /* レスポンシブな余白 */
+}
+
+.formWrapper {
+    padding: 1vw; /* レスポンシブな余白 */
+    margin-left: 2vw; /* レスポンシブな余白 */
+}
+
+.commentTextArea {
+    margin-top: 2vh; /* レスポンシブな余白 */
+    width: 50vw; /* コメントエリアの幅を50%に設定 */
+    height: 20vh; /* コメントエリアの高さを20%に設定 */
+    resize: none;
+}
+
+.errorMessage {
+    color: red;
+    margin-left: 30PX;
+}
