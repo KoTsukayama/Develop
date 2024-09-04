@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ステータスメッセージのスタイル */
+        #statusMessage {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none; /* 初期状態では非表示 */
+            z-index: 1000; /* 最前面に表示 */
+        }
+        .status-add {
+            background-color: #4caf50; /* 新規データ追加時の色（緑色） */
+        }
+        .status-update {
+            background-color: #2196f3; /* データ更新時の色（水色/青色） */
+        }
+    </style>
+</head>
+<body>
+    <!-- ステータスメッセージの表示エリア -->
+    <div id="statusMessage" class="status-message"></div>
+
+    <h1>Workout Tracker App</h1>
+    <form id="workoutForm">
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Progress</h2>
+    <div id="progress">No data recorded yet</div>
+    
+    <!-- データ表示用のテーブル -->
+    <table id="workoutTable" border="1" style="width: 50%; margin: 20px auto; text-align: center;">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Weight (kg)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- JavaScriptでデータを動的に挿入 -->
+        </tbody>
+    </table>
+
+    <canvas id="progressChart" width="400" height="200"></canvas>
+
+    <script>
+        document.getElementById('workoutForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const weight = document.getElementById('weight').value;
+            const date = document.getElementById('date').value;
+            const response = await fetch('/add_workout', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({weight: parseFloat(weight), date: date})
+            });
+            const result = await response.json();
+            
+            // 追加か更新かでメッセージの色と文言を変更
+            if (result.message.includes('added')) {
+                displayStatusMessage(result.message, 'status-add');
+            } else {
+                displayStatusMessage(result.message, 'status-update');
+            }
+            
+            await fetchProgress(); // データ追加後に進捗を再取得してテーブルとグラフを更新
+        });
+
+        async function fetchProgress() {
+            const response = await fetch('/progress');
+            const result = await response.json();
+            if (result.message) {
+                document.getElementById('progress').textContent = result.message;
+            } else {
+                document.getElementById('progress').textContent = `Average Weight: ${result.average_weight} kg`;
+                updateChart(result.weights, result.dates);
+                updateTable(result.dates, result.weights); // テーブルを更新
+            }
+        }
+
+        function updateChart(weights, dates) {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            // 既存のグラフがあれば破棄して新しく作成
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+            window.myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Workout Weight (kg)',
+                        data: weights,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateTable(dates, weights) {
+            const tableBody = document.querySelector('#workoutTable tbody');
+            tableBody.innerHTML = ''; // テーブルをクリア
+            dates.forEach((date, index) => {
+                const row = document.createElement('tr');
+                const dateCell = document.createElement('td');
+                const weightCell = document.createElement('td');
+                dateCell.textContent = date;
+                weightCell.textContent = weights[index];
+                row.appendChild(dateCell);
+                row.appendChild(weightCell);
+                tableBody.appendChild(row);
+            });
+        }
+
+        // ステータスメッセージを表示する関数
+        function displayStatusMessage(message, statusClass) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            statusMessage.className = 'status-message'; // クラスをクリア
+            statusMessage.classList.add(statusClass); // クラスを追加
+            statusMessage.style.display = 'block';  // メッセージを表示
+            setTimeout(() => {
+                statusMessage.style.display = 'none';  // 数秒後に非表示
+            }, 5000);  // 3秒後に消える
+        }
+
+        // ページロード時に進捗を取得
+        fetchProgress();
+    </script>
+</body>
+</html>

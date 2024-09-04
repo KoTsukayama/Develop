@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT-like App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>ChatGPT-like Chat App</h1>
+        <div id="chat-box" class="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message here..." onkeydown="checkEnter(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() === '') return; // 空のメッセージは送信しない
+            
+            fetch('/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: userInput})
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+                chatBox.innerHTML += `<p><strong>Bot:</strong> ${data.response}</p>`;
+                document.getElementById('user-input').value = '';
+                chatBox.scrollTop = chatBox.scrollHeight; // スクロールを最新メッセージに合わせる
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML += `<p><strong>Error:</strong> Could not send message.</p>`;
+            });
+        }
+
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // デフォルトのEnterキー動作を防ぐ
+                sendMessage(); // メッセージを送信する
+            }
+        }
+    </script>
+</body>
+</html>

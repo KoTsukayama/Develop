@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Load Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Training Load Management</h1>
+    <form id="trainingForm">
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label for="sets">Sets:</label>
+            <input type="number" id="sets" name="sets" required>
+        </div>
+        <div class="form-group">
+            <label for="reps">Reps:</label>
+            <input type="number" id="reps" name="reps" required>
+        </div>
+        <div class="form-group">
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" name="weight" required>
+        </div>
+        <button type="submit" id="addEntryButton">Add Entry</button>
+    </form>
+
+    <h2>Training History</h2>
+    <div id="trainingHistory">
+        <canvas id="trainingChart" width="800" height="400"></canvas>
+    </div>
+
+    <!-- JavaScriptファイルを読み込む -->
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
