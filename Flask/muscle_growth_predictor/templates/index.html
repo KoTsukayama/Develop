@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muscle Growth Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+</head>
+<body>
+    <h1>Muscle Growth Predictor</h1>
+    <form id="predictionForm">
+        <label for="sets">Sets:</label>
+        <input type="number" id="sets" name="sets" required>
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps" name="reps" required>
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required>
+        <button type="submit">Predict Muscle Growth</button>
+    </form>
+    <h2>Predicted Muscle Growth</h2>
+    <div id="result"></div>
+</body>
+</html>

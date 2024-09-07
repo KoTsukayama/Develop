@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教師なし学習</title>
+</head>
+<body>
+    <h2>教師なし学習: トレーニングデータのクラスタリング</h2>
+    <form method="post">
+        <label for="input_value1">データポイント1:</label>
+        <input type="text" id="input_value1" name="input_value1">
+        <label for="input_value2">データポイント2:</label>
+        <input type="text" id="input_value2" name="input_value2">
+        <button type="submit">クラスタリング</button>
+    </form>
+    {% if cluster is not none %}
+        <p>クラスタ: {{ cluster }}</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">戻る</a>
+</body>
+</html>

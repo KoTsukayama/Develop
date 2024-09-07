@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Machine Learning App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Machine Learning Comparison App</h1>
+    <ul>
+        <li><a href="{{ url_for('supervised') }}">教師あり学習</a></li>
+        <li><a href="{{ url_for('unsupervised') }}">教師なし学習</a></li>
+        <li><a href="{{ url_for('reinforcement') }}">強化学習</a></li>
+    </ul>
+</body>
+</html>

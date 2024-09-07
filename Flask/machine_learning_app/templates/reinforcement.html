@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reinforcement Learning Results</title>
+</head>
+<body>
+    <h1>強化学習の結果</h1>
+    <p>ここに強化学習の結果や進捗が表示されます。</p>
+    
+    <h2>エピソードごとの報酬</h2>
+    <ul>
+        {% for reward in rewards %}
+        <li>エピソード {{ loop.index }}: 報酬 {{ reward }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教師あり学習</title>
+</head>
+<body>
+    <h2>教師あり学習: トレーニング時間と効果の予測</h2>
+    <form method="post">
+        <label for="input_value">トレーニング時間（時間）:</label>
+        <input type="text" id="input_value" name="input_value">
+        <button type="submit">予測</button>
+    </form>
+    {% if prediction is not none %}
+        <p>予測された効果: {{ prediction }}</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">戻る</a>
+</body>
+</html>
