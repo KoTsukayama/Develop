@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { getHello } from "./services/api";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        getHello().then(response => setData(response));
+    }, []);
+
+    return (
+        <div>
+            <h1>ASP.NET + React App</h1>
+            <ul>
+                {data.map((item, index) => (
+                    <li key={index}>{item.summary}</li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default App;
