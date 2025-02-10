@@ -18,6 +18,7 @@ namespace MyMvcApp.Controllers
         {
             // var users = _context.Users.ToList();
             // return View(users);
+            ViewData["Title"] = "Users List";
             return View();
         }
     }

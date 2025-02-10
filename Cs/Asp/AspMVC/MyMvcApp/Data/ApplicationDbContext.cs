@@ -10,6 +10,7 @@ namespace MyMvcApp.Data
         {
         }
 
+        // ここにDbSetを追加（例: Users テーブル）
         public DbSet<User> Users { get; set; }
     }
 }

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/MyMvcApp.bwv5lkjv1g.bundle.scp.css"
     },
     {
+      "Id": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/wwwroot/config.json",
+      "PackagePath": "staticwebassets/config.json"
+    },
+    {
       "Id": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

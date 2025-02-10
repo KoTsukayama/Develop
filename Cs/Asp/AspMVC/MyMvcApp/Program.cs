@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using MyMvcApp.Data; // ← ApplicationDbContext の名前空間を追加
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using MyMvcApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// appsettings.json から設定を読み込む
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // 🔹 PostgreSQL を使用するための `ApplicationDbContext` 設定
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

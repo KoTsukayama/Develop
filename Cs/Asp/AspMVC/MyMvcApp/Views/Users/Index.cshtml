@@ -1,5 +1,71 @@
 @{
-    ViewData["Title"] = "Users List";
+    ViewData["Title"] = "Test";
 }
-<h2>Users List</h2>
-<p>This is the Users Index Page.</p>
+<h1>@ViewData["Title"]</h1>
+
+<p>TEST</p>
+
+<!-- ボタン -->
+<button id="addPanelBtn" class="btn btn-primary">ADD</button>
+
+<!-- パネルを格納するコンテナ -->
+<div id="panelContainer" class="mt-3"></div>
+
+<script>
+    let maxPanels = 0; // デフォルト値
+
+    // fetchは非同期処理
+    fetch('/config.json')
+        .then(response => response.json())
+        .then(data => {
+            maxPanels = data.MaxPanels;
+        })
+        .catch(error => {
+            console.error("設定ファイルの読み込みに失敗しました:", error);
+        });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const panelContainer = document.getElementById("panelContainer");
+        const addPanelBtn = document.getElementById("addPanelBtn");
+
+        // 追加ボタンクリック時の処理
+        addPanelBtn.addEventListener("click", function () {
+            if (panelContainer.children.length < maxPanels) {
+                // パネルを作成
+                const panel = document.createElement("div");
+                panel.classList.add("card", "shadow", "p-3", "mt-2");
+
+                // ランダムな背景色を設定（視覚的な変化をつけるため）
+                const colors = ["#f8d7da", "#d4edda", "#d1ecf1", "#fff3cd"];
+                panel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                // パネルの内容
+                panel.innerHTML = `
+                <div class="card-body">
+                    <h5 class="card-title">New Panel</h5>
+                    <p class="card-text">This is a dynamically added panel.</p>
+                    <button class="btn btn-danger remove-btn">DELETE</button>
+                </div>
+                `;
+                
+                // パネルを追加
+                panelContainer.appendChild(panel);
+
+                // DELETEボタンにイベントリスナーを追加
+                const removeBtn = panel.querySelector(".remove-btn");
+                removeBtn.addEventListener("click", function () {
+                    panel.remove(); // パネルを削除
+                });
+            } else {
+                            Swal.fire({
+                icon: 'error',
+                title: 'エラー',
+                text: '最大表示数に達しました！',
+                confirmButtonText: 'OK',
+                timer: 3000,
+                timerProgressBar: true
+            });
+            }
+        });
+    });
+</script>

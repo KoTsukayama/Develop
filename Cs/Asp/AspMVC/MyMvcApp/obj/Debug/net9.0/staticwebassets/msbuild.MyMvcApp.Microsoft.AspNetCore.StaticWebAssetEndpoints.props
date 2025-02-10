@@ -1,5 +1,17 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/MyMvcApp/config.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\config.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-oZI0o9j8RQTEhIpX2CHBoUlM3JKI40rEJIH13rSi7pI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"23"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022oZI0o9j8RQTEhIpX2CHBoUlM3JKI40rEJIH13rSi7pI=\u0022"},{"Name":"Last-Modified","Value":"Sun, 09 Feb 2025 10:49:21 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MyMvcApp/config.znoqu0xmp5.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\config.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"znoqu0xmp5"},{"Name":"integrity","Value":"sha256-oZI0o9j8RQTEhIpX2CHBoUlM3JKI40rEJIH13rSi7pI="},{"Name":"label","Value":"_content/MyMvcApp/config.json"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"23"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022oZI0o9j8RQTEhIpX2CHBoUlM3JKI40rEJIH13rSi7pI=\u0022"},{"Name":"Last-Modified","Value":"Sun, 09 Feb 2025 10:49:21 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/MyMvcApp/css/site.b9sayid5wm.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
