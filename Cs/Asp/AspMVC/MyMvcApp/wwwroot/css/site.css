@@ -29,3 +29,102 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* おしゃれなボタンデザイン */
+.btn-primary {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3, #003580);
+  transform: scale(1.05);
+}
+
+/* 削除ボタンもおしゃれに */
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545, #a71d2a);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #a71d2a, #800015);
+  transform: scale(1.05);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #28a745, #218838); /* 明るい緑 → 濃い緑 */
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #218838, #1e7e34); /* ホバー時はさらに濃い緑へ */
+  transform: scale(1.05);
+}
+
+
+/* コメント入力欄のデザイン */
+#commentInput {
+  width: 100%;
+  max-width: 600px;
+  min-height: 100px;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* フォーカス時のエフェクト */
+#commentInput:focus {
+  border-color: #0056b3;
+  box-shadow: 0 4px 12px rgba(0, 91, 187, 0.3);
+}
+
+/* プレースホルダーのカスタマイズ */
+#commentInput::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* モバイル向けの調整 */
+@media (max-width: 600px) {
+  #commentInput {
+      width: 90%;
+  }
+}
+
+/* モーダルの最大幅を大きくする */
+.modal-lg {
+  max-width: 900px; /* さらに広く */
+}
+
+/* テキストエリアのサイズを拡大 */
+.comment-textarea {
+  width: 100%; /* 横幅を最大に */
+  height: 300px; /* 高さをさらに大きく */
+  font-size: 18px; /* 読みやすく */
+  padding: 12px;
+  resize: none; /* リサイズを無効化（必要なら外す） */
+  border-radius: 8px; /* 角を丸く */
+  border: 1px solid #ccc; /* 境界線 */
+}
+
+

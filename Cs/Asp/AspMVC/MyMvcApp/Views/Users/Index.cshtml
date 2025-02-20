@@ -1,33 +1,39 @@
 @{
     ViewData["Title"] = "Test";
 }
-<h1>@ViewData["Title"]</h1>
+@* <h1>@ViewData["Title"]</h1> *@
 
-<p id="userName">UserName</p>
+<h2 id="userName" class="mb-4">UserName</h2>
 
 <!-- ボタン -->
 <button id="addPanelBtn" class="btn btn-primary">ADD</button>
 <button id="removeAllBtn" class="btn btn-danger">REMOVE ALL</button>
+<button id="postBtn" class="btn btn-success">POST</button>
 
 <!-- コメント入力欄 -->
 <textarea id="commentInput" class="form-control mt-2" placeholder="Enter your comment here"></textarea>
 
-<!-- パネルを格納するコンテナ -->
+<!-- パネルを追加するコンテナ -->
 <div id="panelContainer" class="mt-3"></div>
 
-<style>
-    /* コメント入力欄を大きく */
-    #commentInput {
-        width: 100%;
-        height: 100px;
-        font-size: 16px;
-    }
-
-    /* パネルのテキストサイズを統一 */
-    .card-body {
-        font-size: 16px;
-    }
-</style>
+<!-- コメント投稿用モーダル -->
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Post a Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <textarea id="modalCommentInput" class="form-control" placeholder="Enter your comment..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="submitComment">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     let maxPanels = 0; // デフォルト値
@@ -47,56 +53,17 @@
         const addPanelBtn = document.getElementById("addPanelBtn");
         const removeAllBtn = document.getElementById("removeAllBtn");
         const commentInput = document.getElementById("commentInput");
+        const postBtn = document.getElementById("postBtn");
         const userName = document.getElementById("userName").innerText;
+        const modalElement = document.getElementById("commentModal");
+        const modalInstance = new bootstrap.Modal(modalElement);
 
         // 追加ボタンクリック時の処理
         addPanelBtn.addEventListener("click", function () {
             let commentText = commentInput.value.trim();
-            if (commentText === "") {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Warning',
-                    text: 'Please enter a comment before adding a panel.',
-                    confirmButtonText: 'OK'
-                });
-                return;
-            }
-            if (panelContainer.children.length < maxPanels) {
-                // パネルを作成
-                const panel = document.createElement("div");
-                panel.classList.add("card", "shadow", "p-3", "mt-2");
 
-                // ランダムな背景色を設定（視覚的な変化をつけるため）
-                const colors = ["#f8d7da", "#d4edda", "#d1ecf1", "#fff3cd"];
-                panel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-
-                // パネルの内容
-                panel.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title">${userName}</h5>
-                    <p class="card-text">${commentText}</p>
-                    <button class="btn btn-danger remove-btn">DELETE</button>
-                </div>
-                `;
-
-                // パネルを追加
-                panelContainer.appendChild(panel);
-
-                // DELETEボタンにイベントリスナーを追加
-                const removeBtn = panel.querySelector(".remove-btn");
-                removeBtn.addEventListener("click", function () {
-                    panel.remove(); // パネルを削除
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'エラー',
-                    text: '最大表示数に達しました！',
-                    confirmButtonText: 'OK',
-                    timer: 3000,
-                    timerProgressBar: true
-                });
-            }
+            //Add panel
+            addPanel(commentText);
         });
 
         // REMOVE ALLボタンクリック時の処理
@@ -128,5 +95,74 @@
                 });
             }
         });
+
+        // POSTボタンを押したらモーダルを表示
+        postBtn.addEventListener("click", function () {
+            modalInstance.show();
+        });
+
+        // Submitボタンを押したらコメントを処理
+        submitComment.addEventListener("click", function () {
+            let commentText = document.getElementById("modalCommentInput").value.trim();
+
+            //　パネル追加
+            addPanel(commentText);
+
+            // モーダルを閉じる
+            modalInstance.hide();
+
+            // 入力欄をクリア
+            document.getElementById("modalCommentInput").value = "";
+        });
+
+        // Add panel
+        function addPanel(comment) {
+
+            if (comment === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Please enter a comment before adding a panel.',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            if (panelContainer.children.length < maxPanels) {
+                // パネルを作成
+                const panel = document.createElement("div");
+                panel.classList.add("card", "shadow", "p-3", "mt-2");
+
+                // ランダムな背景色を設定（視覚的な変化をつけるため）
+                const colors = ["#f8d7da", "#d4edda", "#d1ecf1", "#fff3cd"];
+                panel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                // パネルの内容
+                panel.innerHTML = `
+                <div class="card-body">
+                    <h5 class="card-title">${userName}</h5>
+                    <p class="card-text">${comment}</p>
+                    <button class="btn btn-danger remove-btn">DELETE</button>
+                </div>
+                `;
+
+                // **削除ボタンのイベントリスナーを追加**
+                panel.querySelector(".remove-btn").addEventListener("click", function () {
+                    panel.remove();
+                });
+
+                // パネルを追加
+                panelContainer.appendChild(panel);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'エラー',
+                    text: '最大表示数に達しました！',
+                    confirmButtonText: 'OK',
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+            }
+        }
     });
 </script>
