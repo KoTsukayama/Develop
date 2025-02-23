@@ -18,8 +18,10 @@ namespace MyMvcApp.Controllers
         {
             // var users = _context.Users.ToList();
             // return View(users);
-            ViewData["Title"] = "Users List";
-            return View();
+            // ViewData["Title"] = "Users List";
+            // return View();
+            var model = new Test(); // ここでモデルをインスタンス化
+            return View(model); //
         }
     }
 }

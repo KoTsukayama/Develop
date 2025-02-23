@@ -1,8 +1,232 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<h2 id="userName" class="mb-4"> HomeUser</h2>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- ボタン -->
+<button id="addPanelBtn" class="btn btn-primary">ADD</button>
+<button id="removeAllBtn" class="btn btn-danger">REMOVE ALL</button>
+<button id="postBtn" class="btn btn-success">POST</button>
+
+<!-- コメント入力欄 -->
+<textarea id="commentInput" class="form-control mt-2" placeholder="Enter your comment here"></textarea>
+
+<!-- パネルを追加するコンテナ -->
+<div id="panelContainer" class="mt-3"></div>
+
+<!-- コメント投稿用モーダル -->
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Post a Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <video id="camera" autoplay></video>
+                <button id="captureBtn" class="btn btn-success">Capture</button>
+                <canvas id="canvas"></canvas>
+                <input type="file" id="fileInput" accept="image/*">
+                @* <script>
+                    
+                </script> *@
+                <textarea id="modalCommentInput" class="form-control" placeholder="Enter your comment..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelBtn" 　data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="submitComment">Submit</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    let maxPanels = 0; // デフォルト値
+
+    // fetchは非同期処理
+    fetch('/config.json')
+        .then(response => response.json())
+        .then(data => {
+            maxPanels = data.MaxPanels;
+        })
+        .catch(error => {
+            console.error("設定ファイルの読み込みに失敗しました:", error);
+        });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const panelContainer = document.getElementById("panelContainer");
+        const addPanelBtn = document.getElementById("addPanelBtn");
+        const removeAllBtn = document.getElementById("removeAllBtn");
+        const commentInput = document.getElementById("commentInput");
+        const postBtn = document.getElementById("postBtn");
+        const userName = document.getElementById("userName").innerText;
+        const modalElement = document.getElementById("commentModal");
+        const modalInstance = new bootstrap.Modal(modalElement);
+
+        // 追加ボタンクリック時の処理
+        addPanelBtn.addEventListener("click", function () {
+            let commentText = commentInput.value.trim();
+
+            //Add panel
+            addPanel(commentText);
+        });
+
+        // REMOVE ALLボタンクリック時の処理
+        removeAllBtn.addEventListener("click", function () {
+            if (panelContainer.children.length > 0) {
+                Swal.fire({
+                    title: 'Confirmation',
+                    text: "Do you really want to remove all panels?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'REMOVE',
+                    cancelButtonText: 'CANCEL'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        panelContainer.innerHTML = ''; // 全て削除
+                        Swal.fire('Removed', 'All panels have been removed.', 'success');
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Info',
+                    text: 'No panels to remove.',
+                    confirmButtonText: 'OK',
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+            }
+        });
+
+        let videoStream = null;
+        let cameraStarted = false;
+
+        async function startCamera() {
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                document.getElementById("camera").srcObject = videoStream;
+            } catch (error) {
+                console.error("Camera access denied:", error);
+            }
+        }
+
+        function stopCamera() {
+            if (videoStream) {
+                const tracks = videoStream.getTracks();
+                tracks.forEach(track => track.stop()); // すべてのトラックを停止
+                videoStream = null;
+                cameraStarted = false; // カメラをリセット
+            }
+        }
+
+        function takePhoto() {
+            const video = document.getElementById("camera");
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+
+            if (video.videoWidth === 0 || video.videoHeight === 0) {
+                console.error("Video stream not ready");
+                return;
+            }
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0);
+        }
+
+        function handlePostClick() {
+            modalInstance.show();
+            const cancelBtn = document.getElementById("cancelBtn");
+            const submitComment = document.getElementById("submitComment");
+            const captureBtn = document.getElementById("captureBtn");
+
+            // カメラを即座に起動する
+            if (!cameraStarted) {
+                startCamera();
+                cameraStarted = true;
+            }
+
+            if (captureBtn) {
+                captureBtn.addEventListener("click", takePhoto);
+            }
+
+            // Submitボタンを押したらコメントを処理
+            // Submitボタンを押したらコメントを処理（1回だけ実行）
+            submitComment.addEventListener("click", function () {
+                let commentText = document.getElementById("modalCommentInput").value.trim();
+
+                // パネル追加
+                addPanel(commentText);
+
+                stopCamera();
+
+                // 入力欄をクリア
+                document.getElementById("modalCommentInput").value = "";
+
+                // モーダルを閉じる
+                modalInstance.hide();
+            }, { once: true });
+
+
+            // Cancelボタンでカメラ停止
+            cancelBtn.addEventListener("click", function () {
+                stopCamera();
+                modalInstance.hide();
+            });
+        }
+
+        // POSTボタンを押したらモーダルを表示
+        postBtn.addEventListener("click", handlePostClick);
+
+
+        // Add panel
+        function addPanel(comment) {
+            console.log("Home：" + comment);
+            if (comment == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Please enter a comment before adding a panel.',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            if (panelContainer.children.length < maxPanels) {
+                // パネルを作成
+                const panel = document.createElement("div");
+                panel.classList.add("card", "shadow", "p-3", "mt-2");
+
+                // ランダムな背景色を設定（視覚的な変化をつけるため）
+                const colors = ["#f8d7da", "#d4edda", "#d1ecf1", "#fff3cd"];
+                panel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                // パネルの内容
+                panel.innerHTML = `
+                <div class="card-body">
+                    <h5 class="card-title">${userName}</h5>
+                    <p class="card-text">${comment}</p>
+                    <button class="btn btn-danger remove-btn">DELETE</button>
+                </div>
+                `;
+
+                // **削除ボタンのイベントリスナーを追加**
+                panel.querySelector(".remove-btn").addEventListener("click", function () {
+                    panel.remove();
+                });
+
+                // パネルを追加
+                panelContainer.appendChild(panel);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'エラー',
+                    text: '最大表示数に達しました！',
+                    confirmButtonText: 'OK',
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+            }
+        }
+    });
+</script>
