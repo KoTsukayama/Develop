@@ -77,6 +77,44 @@ body {
   transform: scale(1.05);
 }
 
+.btn-secondary {
+  background: linear-gradient(135deg, #6c757d, #5a6268); /* 明るいグレー → 濃いグレー */
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #5a6268, #495057); /* ホバー時はさらに濃いグレーへ */
+  transform: scale(1.05);
+}
+
+#fileButton {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+}
+
+#fileButton:hover {
+  background: linear-gradient(135deg, #0056b3, #003580);
+  transform: scale(1.05);
+}
+
+#fileButton:active {
+  transform: scale(0.98);
+}
+
 
 /* コメント入力欄のデザイン */
 #commentInput {

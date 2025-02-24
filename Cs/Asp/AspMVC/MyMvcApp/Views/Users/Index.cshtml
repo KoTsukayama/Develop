@@ -20,18 +20,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="commentModalLabel">Post a Comment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button id="closeModalBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <video id="camera" autoplay></video>
-                <button id="captureBtn" class="btn btn-success">Capture</button>
+
+                <div class="button-group">
+                    <button id="captureBtn" class="btn btn-primary">Capture</button>
+                    <button id="fileButton">File</button>
+                </div>
+
                 <canvas id="canvas"></canvas>
-                <input type="file" id="fileInput" accept="image/*">
-                @* <script>
-                    
-                </script> *@
+                <input type="file" id="fileInput" accept="image/*" hidden>
                 <textarea id="modalCommentInput" class="form-control" placeholder="Enter your comment..."></textarea>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="cancelBtn" 　data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-success" id="submitComment">Submit</button>
@@ -139,9 +142,11 @@
 
         function handlePostClick() {
             modalInstance.show();
+            const closeModalBtn = document.getElementById("closeModalBtn");
             const cancelBtn = document.getElementById("cancelBtn");
             const submitComment = document.getElementById("submitComment");
             const captureBtn = document.getElementById("captureBtn");
+            const modalCommentInput = document.getElementById("modalCommentInput");
 
             // カメラを即座に起動する
             if (!cameraStarted) {
@@ -156,7 +161,7 @@
             // Submitボタンを押したらコメントを処理
             // Submitボタンを押したらコメントを処理（1回だけ実行）
             submitComment.addEventListener("click", function () {
-                let commentText = document.getElementById("modalCommentInput").value.trim();
+                let commentText = modalCommentInput.value.trim();
 
                 // パネル追加
                 addPanel(commentText);
@@ -164,7 +169,7 @@
                 stopCamera();
 
                 // 入力欄をクリア
-                document.getElementById("modalCommentInput").value = "";
+                modalCommentInput.value = "";
 
                 // モーダルを閉じる
                 modalInstance.hide();
@@ -174,6 +179,14 @@
             // Cancelボタンでカメラ停止
             cancelBtn.addEventListener("click", function () {
                 stopCamera();
+                modalCommentInput.value = "";
+                modalInstance.hide();
+            });
+
+            // Closeボタンでカメラ停止
+            closeModalBtn.addEventListener("click", function () {
+                stopCamera();
+                modalCommentInput.value = "";
                 modalInstance.hide();
             });
         }
@@ -181,6 +194,9 @@
         // POSTボタンを押したらモーダルを表示
         postBtn.addEventListener("click", handlePostClick);
 
+        document.getElementById('fileButton').addEventListener('click', function () {
+            document.getElementById('fileInput').click();
+        });
 
         // Add panel
         function addPanel(comment) {
