@@ -92,7 +92,7 @@ body {
   transform: scale(1.05);
 }
 
-#fileButton {
+/* #fileButton {
   background: linear-gradient(135deg, #007bff, #0056b3);
   border: none;
   color: white;
@@ -113,7 +113,7 @@ body {
 
 #fileButton:active {
   transform: scale(0.98);
-}
+} */
 
 
 /* コメント入力欄のデザイン */
@@ -121,6 +121,7 @@ body {
   width: 100%;
   max-width: 600px;
   min-height: 100px;
+  margin-top: 30px; 
   padding: 12px;
   font-size: 16px;
   border: 2px solid #007bff;
@@ -164,5 +165,43 @@ body {
   border-radius: 8px; /* 角を丸く */
   border: 1px solid #ccc; /* 境界線 */
 }
+
+/* 画像パネルのスタイル */
+.photo-panel {
+  position: relative;
+  display: inline-block;
+  margin: 15px; /* 余白を増やす */
+  border: 3px solid #ccc; /* 枠線を太く */
+  border-radius: 12px; /* 角を大きめに丸く */
+  overflow: hidden;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3); /* 影を強調 */
+  padding: 10px; /* 内側の余白を追加 */
+}
+
+/* 画像のスタイル */
+.captured-image {
+  width: 180px; /* サイズを大きく */
+  height: 180px;
+  object-fit: cover;
+}
+
+/* バツボタン（×）のスタイル */
+.close-btn {
+  position: absolute;
+  top: 8px; /* ボタンの位置を調整 */
+  right: 8px;
+  background-color: red;
+  color: white;
+  border: none;
+  width: 35px; /* ボタンを大きく */
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px; /* フォントサイズを大きく */
+  font-weight: bold;
+  text-align: center;
+  line-height: 35px;
+}
+
 
 

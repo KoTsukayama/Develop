@@ -20,19 +20,24 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="commentModalLabel">Post a Comment</h5>
-                <button id="closeModalBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button id="closeModalBtn" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <video id="camera" autoplay></video>
 
                 <div class="button-group">
                     <button id="captureBtn" class="btn btn-primary">Capture</button>
-                    <button id="fileButton">File</button>
+                    <button id="fileButton" class="btn btn-primary">File</button>
                 </div>
 
-                <canvas id="canvas"></canvas>
+                <canvas id="canvas" style="display: none;"></canvas>
                 <input type="file" id="fileInput" accept="image/*" hidden>
-                <textarea id="modalCommentInput" class="form-control" placeholder="Enter your comment..."></textarea>
+                <textarea id="modalCommentInput" class="form-control mt-3"
+                    placeholder="Enter your comment..."></textarea>
+
+                <!-- 追加された画像を表示するエリア -->
+                <div id="photoContainer"></div>
             </div>
 
             <div class="modal-footer">
@@ -137,11 +142,53 @@
 
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-            ctx.drawImage(video, 0, 0);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // `canvas` の画像をデータURL（base64）に変換
+            const imageData = canvas.toDataURL("image/png");
+
+            // パネルとして追加
+            addImagePanel(imageData);
+        }
+
+        // 撮影した画像をパネルとして追加する関数
+        function addImagePanel(imageData) {
+            const photoContainer = document.getElementById("photoContainer");
+
+            // 画像パネルを作成
+            const panel = document.createElement("div");
+            panel.classList.add("photo-panel");
+
+            // 画像を追加
+            const img = document.createElement("img");
+            img.src = imageData;
+            img.classList.add("captured-image");
+
+            // バツボタン（×）を追加
+            const closeButton = document.createElement("button");
+            closeButton.innerHTML = "×";
+            closeButton.classList.add("close-btn");
+
+            // 削除ボタンのクリックイベント
+            closeButton.addEventListener("click", function () {
+                panel.remove();
+            });
+
+            // パネルに画像とバツボタンを追加
+            panel.appendChild(img);
+            panel.appendChild(closeButton);
+            photoContainer.appendChild(panel);
         }
 
         function handlePostClick() {
-            modalInstance.show();
+            document.getElementById("photoContainer").innerHTML = "";
+
+            // 次のフレームで `modalInstance.show();` を実行
+            requestAnimationFrame(() => {
+                modalInstance.show();
+            });
+
+            @* modalInstance.show(); *@
             const closeModalBtn = document.getElementById("closeModalBtn");
             const cancelBtn = document.getElementById("cancelBtn");
             const submitComment = document.getElementById("submitComment");
@@ -158,29 +205,16 @@
                 captureBtn.addEventListener("click", takePhoto);
             }
 
-            // Submitボタンを押したらコメントを処理
-            // Submitボタンを押したらコメントを処理（1回だけ実行）
-            submitComment.addEventListener("click", function () {
-                let commentText = modalCommentInput.value.trim();
-
-                // パネル追加
-                addPanel(commentText);
-
-                stopCamera();
-
-                // 入力欄をクリア
-                modalCommentInput.value = "";
-
-                // モーダルを閉じる
-                modalInstance.hide();
-            }, { once: true });
-
+            // 既存のイベントリスナーを削除してから追加
+            submitComment.removeEventListener("click", handleSubmit);
+            submitComment.addEventListener("click", handleSubmit);
 
             // Cancelボタンでカメラ停止
             cancelBtn.addEventListener("click", function () {
                 stopCamera();
                 modalCommentInput.value = "";
                 modalInstance.hide();
+                submitComment.removeEventListener("click", handleSubmit);
             });
 
             // Closeボタンでカメラ停止
@@ -188,6 +222,7 @@
                 stopCamera();
                 modalCommentInput.value = "";
                 modalInstance.hide();
+                submitComment.removeEventListener("click", handleSubmit);
             });
         }
 
@@ -198,6 +233,15 @@
             document.getElementById('fileInput').click();
         });
 
+        function handleSubmit() {
+            let commentText = modalCommentInput.value.trim();
+
+            if (addPanel(commentText)) {
+                stopCamera();
+                modalCommentInput.value = "";
+                modalInstance.hide();
+            }
+        }
         // Add panel
         function addPanel(comment) {
             console.log("Home：" + comment);
@@ -208,7 +252,7 @@
                     text: 'Please enter a comment before adding a panel.',
                     confirmButtonText: 'OK'
                 });
-                return;
+                return false;
             }
 
             if (panelContainer.children.length < maxPanels) {
@@ -220,12 +264,22 @@
                 const colors = ["#f8d7da", "#d4edda", "#d1ecf1", "#fff3cd"];
                 panel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
+                // 画像を取得
+                const images = photoContainer.querySelectorAll("img"); // すべての画像を取得
+                let imageHTML = "";
+
+                // 画像を `imageHTML` に追加
+                images.forEach(img => {
+                    imageHTML += `<img src="${img.src}" class="img-fluid captured-image" style="max-width: 100%; height: auto; margin-bottom: 10px;">`;
+                });
+
                 // パネルの内容
                 panel.innerHTML = `
                 <div class="card-body">
-                    <h5 class="card-title">${userName}</h5>
-                    <p class="card-text">${comment}</p>
-                    <button class="btn btn-danger remove-btn">DELETE</button>
+                <h5 class="card-title">${userName}</h5>
+                ${imageHTML}
+                <p class="card-text">${comment}</p>
+                <button class="btn btn-danger remove-btn">DELETE</button>
                 </div>
                 `;
 
@@ -245,7 +299,9 @@
                     timer: 3000,
                     timerProgressBar: true
                 });
+                return false;
             }
+            return true;
         }
     });
 </script>
