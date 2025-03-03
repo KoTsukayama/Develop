@@ -99,7 +99,8 @@
                     cancelButtonText: 'CANCEL'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        panelContainer.innerHTML = ''; // 全て削除
+                        document.getElementById("left-column").innerHTML = "";
+                        document.getElementById("right-column").innerHTML = "";
                         Swal.fire('Removed', 'All panels have been removed.', 'success');
                     }
                 });
@@ -271,7 +272,7 @@
 
             const panelCount = document.querySelectorAll("#panelContainer .card").length;
 
-            if (panelContainer.children.length < maxPanels) {
+            if (panelCount < maxPanels) {
                 // パネルを作成
                 const panel = document.createElement("div");
                 panel.classList.add("card", "shadow", "p-3", "mt-2");
