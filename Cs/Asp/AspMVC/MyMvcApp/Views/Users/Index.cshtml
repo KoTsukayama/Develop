@@ -1,6 +1,5 @@
 @model MyMvcApp.Models.Test
 
-
 <h2 id="userName" class="mb-4"> @Model.Name</h2>
 
 <!-- ボタン -->
@@ -12,11 +11,9 @@
 <textarea id="commentInput" class="form-control mt-2" placeholder="Enter your comment here"></textarea>
 
 <!-- パネルを追加するコンテナ -->
-@* <div id="panelContainer" class="mt-3"></div> *@
-@* <div id="panelContainer" class="d-flex container-fluid"> *@
 <div id="panelContainer" class="d-flex">
-    <div id="left-column" class="w-50"></div>
-    <div id="right-column" class="w-50"></div>
+    <div id="left-column" class="flex-grow-1"></div>
+    <div id="right-column" class="flex-grow-1"></div>
 </div>
 
 <!-- コメント投稿用モーダル -->
