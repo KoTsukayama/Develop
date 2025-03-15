@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6jATPG+k3JRPmGq0Io5GPy5Kt1Cmw//c2TJNHmLGgUA=",
+  "Hash": "Yp2qEGv7RKy9xMJobLjHSml1+kd2AUbbHLZ6DNQ64p0=",
   "Source": "MyMvcApp",
   "BasePath": "_content/MyMvcApp",
   "Mode": "Default",
@@ -311,12 +311,12 @@
       "OriginalItemSpec": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-3aup8w57d0.gz",
+      "Identity": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-czaodo7sse.gz",
       "SourceId": "MyMvcApp",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/",
       "BasePath": "_content/MyMvcApp",
-      "RelativePath": "css/site#[.{fingerprint=3aup8w57d0}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=czaodo7sse}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -325,8 +325,8 @@
       "RelatedAsset": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/wwwroot/css/site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "zh5pttsbuh",
-      "Integrity": "Fzli8/ZJxsI9BRYJJ6b6sVkMG7SN9W1Z+HdtrfP3CHo=",
+      "Fingerprint": "zhzapabtkq",
+      "Integrity": "yRxuqeWv2B2cXW6YV3uvLNdoPlODI1L1OCVITOYDZIw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/wwwroot/css/site.css"
@@ -1459,8 +1459,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "3aup8w57d0",
-      "Integrity": "i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM=",
+      "Fingerprint": "czaodo7sse",
+      "Integrity": "aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/site.css"
@@ -3068,8 +3068,8 @@
       ]
     },
     {
-      "Route": "css/site.3aup8w57d0.css",
-      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-3aup8w57d0.gz",
+      "Route": "css/site.css",
+      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-czaodo7sse.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
@@ -3088,15 +3088,15 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Fzli8/ZJxsI9BRYJJ6b6sVkMG7SN9W1Z+HdtrfP3CHo=\""
+          "Value": "\"yRxuqeWv2B2cXW6YV3uvLNdoPlODI1L1OCVITOYDZIw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 03 Mar 2025 21:53:50 GMT"
+          "Value": "Sat, 15 Mar 2025 03:10:30 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -3112,26 +3112,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM=\""
+          "Value": "W/\"aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "3aup8w57d0"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM="
+          "Value": "sha256-aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M="
         }
       ]
     },
     {
-      "Route": "css/site.3aup8w57d0.css",
+      "Route": "css/site.css",
       "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/wwwroot/css/site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3141,7 +3133,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5884"
+          "Value": "5880"
         },
         {
           "Name": "Content-Type",
@@ -3149,35 +3141,27 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM=\""
+          "Value": "\"aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 03 Mar 2025 21:53:50 GMT"
+          "Value": "Sat, 15 Mar 2025 03:10:30 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "3aup8w57d0"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM="
+          "Value": "sha256-aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M="
         }
       ]
     },
     {
-      "Route": "css/site.3aup8w57d0.css.gz",
-      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-3aup8w57d0.gz",
+      "Route": "css/site.css.gz",
+      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-czaodo7sse.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3194,11 +3178,164 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Fzli8/ZJxsI9BRYJJ6b6sVkMG7SN9W1Z+HdtrfP3CHo=\""
+          "Value": "\"yRxuqeWv2B2cXW6YV3uvLNdoPlODI1L1OCVITOYDZIw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 03 Mar 2025 21:53:50 GMT"
+          "Value": "Sat, 15 Mar 2025 03:10:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-yRxuqeWv2B2cXW6YV3uvLNdoPlODI1L1OCVITOYDZIw="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.czaodo7sse.css",
+      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-czaodo7sse.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000492368291"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2030"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yRxuqeWv2B2cXW6YV3uvLNdoPlODI1L1OCVITOYDZIw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 15 Mar 2025 03:10:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "czaodo7sse"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.czaodo7sse.css",
+      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/wwwroot/css/site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5880"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 15 Mar 2025 03:10:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "czaodo7sse"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aLUVxm6SK6ScxfZV4HN6yHcAnvhCsbD0IWDnmWMiD8M="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.czaodo7sse.css.gz",
+      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-czaodo7sse.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2030"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yRxuqeWv2B2cXW6YV3uvLNdoPlODI1L1OCVITOYDZIw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 15 Mar 2025 03:10:30 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3216,7 +3353,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "3aup8w57d0"
+          "Value": "czaodo7sse"
         },
         {
           "Name": "label",
@@ -3224,144 +3361,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Fzli8/ZJxsI9BRYJJ6b6sVkMG7SN9W1Z+HdtrfP3CHo="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-3aup8w57d0.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000492368291"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2030"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Fzli8/ZJxsI9BRYJJ6b6sVkMG7SN9W1Z+HdtrfP3CHo=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 03 Mar 2025 21:53:50 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/wwwroot/css/site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5884"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 03 Mar 2025 21:53:50 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-i/3Pjk5/ZBpc+gpIYEatDTpDlJM/unf8nVeKsYGF2qM="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css.gz",
-      "AssetFile": "/Users/tsukayamakou/Develop/MyGit/Cs/Asp/AspMVC/MyMvcApp/obj/Debug/net9.0/compressed/5ferloct44-3aup8w57d0.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2030"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Fzli8/ZJxsI9BRYJJ6b6sVkMG7SN9W1Z+HdtrfP3CHo=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 03 Mar 2025 21:53:50 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Fzli8/ZJxsI9BRYJJ6b6sVkMG7SN9W1Z+HdtrfP3CHo="
+          "Value": "sha256-yRxuqeWv2B2cXW6YV3uvLNdoPlODI1L1OCVITOYDZIw="
         }
       ]
     },

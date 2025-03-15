@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "プログラミング言語の人気推移";
+}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script> <!-- 最新版を指定 -->
+</head>
+
+<body>
+    <h1>プログラミング言語の人気推移</h1>
+    <div id="chart"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("/Home/GetProgrammingTrends")
+                .then(response => response.json())
+                .then(data => {
+                    console.log("取得データ:", data);
+
+                    if (!Array.isArray(data) || data.length === 0) {
+                        console.error("データが空か、配列ではありません。");
+                        return;
+                    }
+
+                    let traces = {};
+                    const colors = [
+                        "#FF5733", "#33FF57", "#3357FF", "#FF33A1",
+                        "#A133FF", "#33FFA1", "#FFA133", "#FF5733",
+                        "#FF8C00", "#32CD32", "#6A5ACD", "#FFD700"
+                    ];
+
+                    let colorIndex = 0;
+
+                    data.forEach(row => {
+                        console.log("取得データ:", row);
+                        console.log("取得データ:", row.data);
+                        let lang = row.language;
+                        if (!traces[lang]) {
+                            traces[lang] = { x: [], y: [], name: lang, color: colors[colorIndex] };
+                            colorIndex = (colorIndex + 1) % colors.length;
+                        }
+
+                        if (Array.isArray(row.data)) {
+                            row.data.forEach(entry => {
+                                console.log("取得データ:", entry);
+                                traces[lang].x.push(entry.year);
+                                traces[lang].y.push(entry.ranking);
+                            });
+                        } else {
+                            console.error(`Dataが配列ではありません:`, row);
+                        }
+                    });
+
+                    let plotData = Object.values(traces).map(trace => ({
+                        x: trace.x,
+                        y: trace.y,
+                        type: 'scatter',
+                        mode: 'lines+markers',
+                        name: trace.name,
+                        line: { color: trace.color, width: 2 }
+                    }));
+
+                    let layout = {
+                        title: 'プログラミング言語の人気推移 (TIOBE Index)',
+                        xaxis: { title: 'Year' },
+                        yaxis: { title: 'Ranking', autorange: 'reversed' },
+                        legend: { title: { text: "言語" } }
+                    };
+
+                    Plotly.newPlot('chart', plotData, layout);
+                })
+                .catch(error => console.error("データの取得に失敗:", error));
+        });
+    </script>
+</body>
+
+</html>

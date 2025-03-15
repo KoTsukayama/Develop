@@ -1,6 +1,549 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿<!DOCTYPE html>
+<html lang="ja">
 
-<p>Use this page to detail your site's privacy policy.</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMLの高度な機能紹介</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(255, 204, 0, 0.5);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .section h2 {
+            background: linear-gradient(135deg, #3b3b4f, #2a2a3c);
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 0;
+            transition: background 0.3s, transform 0.2s;
+            text-align: center;
+        }
+
+        .section h2:hover {
+            background: #575776;
+            transform: scale(1.02);
+        }
+
+        .section div {
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin-top: 10px;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        pre {
+            background: #111;
+            color: #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9em;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        canvas {
+            background-color: #f0f0f0;
+            border: 2px solid #ccc;
+        }
+
+        video,
+        audio {
+            width: 100%;
+            max-width: 320px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>HTMLの高度な機能紹介</h1>
+    <div class="container">
+        <div class="section">
+            <h2 onclick="toggleSection(this)">1️⃣ &lt;canvas&gt; で描画</h2>
+            <div>
+                <p>幻想的なネオン風アニメーション</p>
+                <canvas id="myCanvas"></canvas>
+                <script>
+                    const canvas = document.getElementById("myCanvas");
+                    const ctx = canvas.getContext("2d");
+
+                    function resizeCanvas() {
+                        canvas.width = document.querySelector(".section").clientWidth * 0.9;
+                        canvas.height = canvas.width * 0.5;
+                    }
+
+                    let balls = [];
+                    const numBalls = 10;
+
+                    class Ball {
+                        constructor() {
+                            this.radius = Math.random() * 20 + 10;
+                            this.x = Math.random() * (canvas.width - this.radius * 2) + this.radius;
+                            this.y = Math.random() * (canvas.height - this.radius * 2) + this.radius;
+                            this.dx = (Math.random() - 0.5) * 6;
+                            this.dy = (Math.random() - 0.5) * 6;
+                            this.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+                        }
+
+                        draw() {
+                            ctx.beginPath();
+                            const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                            gradient.addColorStop(0, "white");
+                            gradient.addColorStop(0.5, this.color);
+                            gradient.addColorStop(1, "black");
+
+                            ctx.fillStyle = gradient;
+                            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.closePath();
+                        }
+
+                        update() {
+                            this.x += this.dx;
+                            this.y += this.dy;
+
+                            if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                                this.dx *= -1;
+                            }
+                            if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                                this.dy *= -1;
+                            }
+
+                            this.draw();
+                        }
+                    }
+
+                    function createBalls() {
+                        balls = [];
+                        for (let i = 0; i < numBalls; i++) {
+                            balls.push(new Ball());
+                        }
+                    }
+
+                    function drawBackground() {
+                        let gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                        gradient.addColorStop(0, "#1e3c72");
+                        gradient.addColorStop(1, "#2a5298");
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }
+
+                    function animate() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        drawBackground();
+                        balls.forEach(ball => ball.update());
+                        requestAnimationFrame(animate);
+                    }
+
+                    function initializeAnimation() {
+                        resizeCanvas();
+                        createBalls();
+                        animate();
+                    }
+
+                    window.addEventListener("resize", () => {
+                        resizeCanvas();
+                        createBalls();
+                    });
+
+                    initializeAnimation();
+                </script>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 onclick="toggleSection(this)">2️⃣ &lt;svg&gt; を使った高度アニメーション</h2>
+            <div>
+                <svg width="100%" height="100%" viewBox="0 0 500 300" preserveAspectRatio="none">
+                    <!-- 定義部：グラデーションとグローエフェクト -->
+                    <defs>
+                        <linearGradient id="bgGradient" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#1e3c72" />
+                            <stop offset="100%" stop-color="#2a5298" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="coloredBlur" />
+                            <feMerge>
+                                <feMergeNode in="coloredBlur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- 背景（セクションのサイズに合わせる） -->
+                    <rect width="100%" height="100%" fill="url(#bgGradient)" />
+
+                    <!-- 中央のアニメーション：テキスト "SVG" -->
+                    <g transform="translate(250,150)">
+                        <!-- 回転アニメーション -->
+                        <g>
+                            <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 0 0"
+                                to="360 0 0" dur="10s" repeatCount="indefinite" />
+                            <!-- スケールアニメーション -->
+                            <g>
+                                <animateTransform attributeName="transform" attributeType="XML" type="scale"
+                                    values="1;1.2;1" keyTimes="0;0.5;1" dur="2s" repeatCount="indefinite" />
+                                <!-- "SVG"テキスト -->
+                                <text x="0" y="0" dominant-baseline="middle" text-anchor="middle"
+                                    font-family="Helvetica, Arial, sans-serif" font-size="72" fill="#ffffff"
+                                    filter="url(#glow)">
+                                    SVG
+                                    <!-- 塗り色アニメーション -->
+                                    <animate attributeName="fill" values="#ffffff;#ff69b4;#ffffff" dur="4s"
+                                        repeatCount="indefinite" />
+                                </text>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 onclick="toggleSection(this)">3️⃣ &lt;video&gt; タグの高度な機能</h2>
+            <div>
+                <p>HTMLの<code>&lt;video&gt;</code>タグを使って動画を埋め込むことができます。カスタムコントロールやアニメーション効果を加えました。</p>
+
+                <div class="video-container" style="position: relative; width: 100%; max-width: 600px;">
+                    <video id="videoElement" width="100%" height="auto" controls autoplay loop>
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        お使いのブラウザは動画タグをサポートしていません。
+                    </video>
+
+                    <!-- カスタムコントロール -->
+                    <div class="custom-controls" style="position: absolute; bottom: 10px; left: 10px; z-index: 10;">
+                        <button id="playPauseBtn" onclick="togglePlayPause()">▶️</button>
+                        <input type="range" id="progressBar" value="0" max="100" step="0.1" onchange="seekVideo()">
+                        <button id="muteBtn" onclick="toggleMute()">🔊</button>
+                        <input type="range" id="volumeControl" min="0" max="1" step="0.1" onchange="changeVolume()"
+                            value="1">
+                    </div>
+
+                    <!-- オーバーレイテキスト -->
+                    <div class="overlay-text" id="overlayText"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px;">
+                        <h2>楽しんでください！</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- スタイル -->
+        <style>
+            .video-container {
+                position: relative;
+                width: 100%;
+                max-width: 640px;
+                margin: auto;
+            }
+
+            .custom-controls {
+                position: absolute;
+                bottom: 20px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                z-index: 10;
+            }
+
+            #progressBar {
+                width: 200px;
+            }
+
+            .overlay-text {
+                position: absolute;
+                top: 20%;
+                left: 50%;
+                transform: translateX(-50%);
+                color: white;
+                font-size: 2rem;
+                font-weight: bold;
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+                opacity: 0;
+                transition: opacity 1s;
+            }
+
+            /* 動画が再生中にオーバーレイを非表示 */
+            video:playing+.overlay-text {
+                opacity: 0;
+            }
+        </style>
+
+        <!-- スクリプト -->
+        <script>
+            const videoElement = document.getElementById('videoElement');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const progressBar = document.getElementById('progressBar');
+            const muteBtn = document.getElementById('muteBtn');
+            const volumeControl = document.getElementById('volumeControl');
+            const overlayText = document.getElementById('overlayText');
+
+            // 再生/一時停止ボタンの切り替え
+            function togglePlayPause() {
+                if (videoElement.paused) {
+                    videoElement.play();
+                    playPauseBtn.textContent = "⏸️";
+                } else {
+                    videoElement.pause();
+                    playPauseBtn.textContent = "▶️";
+                }
+            }
+
+            // 進捗バーの更新
+            videoElement.addEventListener('timeupdate', function () {
+                const progress = (videoElement.currentTime / videoElement.duration) * 100;
+                progressBar.value = progress;
+            });
+
+            // 進捗バーでシーク
+            function seekVideo() {
+                const seekTo = (progressBar.value / 100) * videoElement.duration;
+                videoElement.currentTime = seekTo;
+            }
+
+            // 音声のオン/オフ切り替え
+            function toggleMute() {
+                videoElement.muted = !videoElement.muted;
+                muteBtn.textContent = videoElement.muted ? "🔇" : "🔊";
+            }
+
+            // 音量変更
+            function changeVolume() {
+                videoElement.volume = volumeControl.value;
+            }
+
+            // 動画が再生されるとオーバーレイテキストを非表示に
+            videoElement.addEventListener('play', function () {
+                overlayText.style.opacity = 0;
+            });
+
+            // 動画が一時停止されるとオーバーレイテキストを表示
+            videoElement.addEventListener('pause', function () {
+                overlayText.style.opacity = 1;
+            });
+        </script>
+
+
+        <div class="section">
+            <h2 onclick="toggleSection(this)">4️⃣ &lt;audio&gt; タグの高度な機能</h2>
+            <div>
+                <p>HTMLの<code>&lt;audio&gt;</code>タグを使って音声を埋め込むことができます。カスタムコントロールやアニメーション効果を加えました。</p>
+
+                <div class="audio-container" style="position: relative; width: 100%; max-width: 600px;">
+                    <!-- 音声プレイヤー -->
+                    <audio id="audioElement" controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                        お使いのブラウザはオーディオタグをサポートしていません。
+                    </audio>
+
+                    <!-- カスタムコントロール -->
+                    <div class="custom-controls"
+                        style="position: absolute; bottom: 10px; left: 10px; z-index: 10; width: 100%;">
+                        <button id="playPauseBtn" onclick="togglePlayPause()">▶️</button>
+                        <input type="range" id="progressBar" value="0" max="100" step="0.1" onchange="seekAudio()"
+                            style="width: 80%;">
+                        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+                        <button id="muteBtn" onclick="toggleMute()">🔊</button>
+                        <input type="range" id="volumeControl" min="0" max="1" step="0.1" onchange="changeVolume()"
+                            value="1">
+                    </div>
+
+                    <!-- 波形アニメーション -->
+                    <canvas id="waveCanvas" width="600" height="100"
+                        style="position: absolute; top: 0; left: 0;"></canvas>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // AudioとCanvasの準備
+            const audio = document.getElementById("audioElement");
+            const canvas = document.getElementById("waveCanvas");
+            const ctx = canvas.getContext("2d");
+
+            // 再生時間の表示
+            audio.ontimeupdate = function () {
+                updateProgressBar();
+                updateTime();
+                drawWaveform();
+            };
+
+            // 再生ボタンのトグル
+            function togglePlayPause() {
+                if (audio.paused) {
+                    audio.play();
+                    document.getElementById("playPauseBtn").innerText = "⏸️";
+                } else {
+                    audio.pause();
+                    document.getElementById("playPauseBtn").innerText = "▶️";
+                }
+            }
+
+            // プログレスバーの更新
+            function updateProgressBar() {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                document.getElementById("progressBar").value = progress;
+            }
+
+            // 時間の更新
+            function updateTime() {
+                const currentMinutes = Math.floor(audio.currentTime / 60);
+                const currentSeconds = Math.floor(audio.currentTime % 60);
+                const durationMinutes = Math.floor(audio.duration / 60);
+                const durationSeconds = Math.floor(audio.duration % 60);
+                document.getElementById("currentTime").innerText = `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds}`;
+                document.getElementById("duration").innerText = `${durationMinutes}:${durationSeconds < 10 ? '0' + durationSeconds : durationSeconds}`;
+            }
+
+            // シークバー
+            function seekAudio() {
+                const seekTime = (audio.duration * document.getElementById("progressBar").value) / 100;
+                audio.currentTime = seekTime;
+            }
+
+            // ミュートのトグル
+            function toggleMute() {
+                audio.muted = !audio.muted;
+                document.getElementById("muteBtn").innerText = audio.muted ? "🔇" : "🔊";
+            }
+
+            // 音量の変更
+            function changeVolume() {
+                audio.volume = document.getElementById("volumeControl").value;
+            }
+
+            // 波形の描画
+            function drawWaveform() {
+                const analyser = new (window.AudioContext || window.webkitAudioContext)().createAnalyser();
+                const source = new (window.AudioContext || window.webkitAudioContext)().createMediaElementSource(audio);
+                source.connect(analyser);
+                analyser.connect(new (window.AudioContext || window.webkitAudioContext)().destination);
+
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                analyser.getByteFrequencyData(dataArray);
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "rgb(0, 255, 0)";
+                const barWidth = (canvas.width / bufferLength) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i];
+                    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                    x += barWidth + 1;
+                }
+            }
+        </script>
+
+
+
+        <div class="section">
+            <h2 onclick="toggleSection(this)">5️⃣ &lt;details&gt; タグ</h2>
+            <div>
+                <p>HTMLの<code>&lt;details&gt;</code>タグを使うと、クリックで開閉できる詳細情報を作成できます。</p>
+                <details id="details-1">
+                    <summary>詳細を見る 1</summary>
+                    <div>
+                        <p>ここに詳細な情報を記載できます。</p>
+                    </div>
+                </details>
+                <details id="details-2">
+                    <summary>詳細を見る 2</summary>
+                    <div>
+                        <p>他の情報もここに記載できます。</p>
+                    </div>
+                </details>
+                <details id="details-3">
+                    <summary>詳細を見る 3</summary>
+                    <div>
+                        <p>さらに別の情報です。</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <script>
+            // 開閉状態をローカルストレージに保存する
+            document.querySelectorAll('details').forEach(function (detail) {
+                const id = detail.id;
+                // 初期状態の設定
+                if (localStorage.getItem(id) === 'open') {
+                    detail.setAttribute('open', 'open');
+                }
+
+                detail.addEventListener('toggle', function () {
+                    if (detail.open) {
+                        localStorage.setItem(id, 'open');
+                    } else {
+                        localStorage.removeItem(id);
+                    }
+                });
+            });
+
+            // 複数の詳細セクションの制御（1つだけ開く）
+            const detailsElements = document.querySelectorAll('details');
+            detailsElements.forEach(detail => {
+                detail.addEventListener('click', function () {
+                    detailsElements.forEach(otherDetail => {
+                        if (otherDetail !== detail && otherDetail.open) {
+                            otherDetail.removeAttribute('open');
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <script>
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            content.style.display = (content.style.display === 'none' || content.style.display === '') ? 'block' : 'none';
+        }
+    </script>
+</body>
+
+</html>
